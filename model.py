@@ -7,7 +7,7 @@ import scipy.io as sio
 from ops import *
 from utils import *
 
-
+import matplotlib.image as matimage
 def conv_out_size_same(size, stride):
     return int(math.ceil(float(size) / float(stride)))
 
@@ -401,7 +401,7 @@ class NUS_GAN(object):
 
         img_B = np.zeros((len(image), self.output_height, self.output_width, self.c_dim), dtype=np.float)
         for im in range(len(image)):
-            tmp_B = scipy.misc.imresize(imread(image[im], False), [self.output_height, self.output_width, self.c_dim])
+            tmp_B = np.resize(np.array(matimage.imread(image[im]), (self.output_height, self.output_width, self.c_dim))
             img_B[im] = np.array(tmp_B)/127.5 - 1.
             print("tdc tst %d" % im)
         #img_B = img_B.reshape(img_B.shape[0], img_B.shape[1], img_B.shape[2], 1)
